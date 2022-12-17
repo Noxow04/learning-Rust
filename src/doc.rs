@@ -90,13 +90,14 @@ fn main() {
 
 
     /* Arrays, slicing and indexing */
-    // Arrays have a fixed length
+    // Arrays have a fixed length and type
     // syntax: [type; length]
     let array: [i32; 5] = [1,2,3,4,5];
 
     // Arrays can also be initialized with a default value
     // Syntax : let array = [value; length]
-    let array = [5; 10];
+    let array = [5; 3];
+    println!("[5; 3] is equivalent to [5,5,5] : {}", array == [5,5,5])
 
     /* Indexing
     array[0] <=> first item of the array
