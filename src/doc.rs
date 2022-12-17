@@ -9,15 +9,15 @@ fn main() {
     println!("Hello, world!");
 
     // formatted print
-    let x= 5;
+    let x = 5;
     println!("Variable = {}", x);
     println!("Variable = {x}");
 
     // formatted print with inner variables
     println!("{0}, this is {1}. {1}, this is {0}", "Alice", "Bob");
-    println!("{number:>5}", number=1);
-    println!("{number:0>5}", number=1);
-    println!("{number:0<5}", number=1);
+    println!("{number:>5}", number = 1);
+    println!("{number:0>5}", number = 1);
+    println!("{number:0<5}", number = 1);
 
     // decimal limit formatted print
     let pi = 3.141592;
@@ -73,5 +73,44 @@ fn main() {
     NOT bool <=> !bool */
 
     /* Use underscores to improve readability!
-    1 million is 1_000_000u32 */
+    1 million is 1_000_000 */
+
+
+    /* Tuples */
+    // Tuples are immutable arrays and can have items with different types
+    let tuple = (true, 10, 0.5);
+
+    // Tuples can be destructured to bind each of their item to an independent variable
+    let (x1, x2, x3) = tuple;
+    let result = x2 + x3;
+
+    // Tuples with more than 12 items wont print
+    // Tuples can be nested
+    let tuple_of_tuples = ((1, 2, 3), (4, 5), (6, 7, 8));
+
+
+    /* Arrays, slicing and indexing */
+    // Arrays have a fixed length
+    // syntax: [type; length]
+    let array: [i32; 5] = [1,2,3,4,5];
+
+    // Arrays can also be initialized with a default value
+    // Syntax : let array = [value; length]
+    let array = [5; 10];
+
+    /* Indexing
+    array[0] <=> first item of the array
+    array[1] <=> second item of the array
+    etc...
+    Indexing outside the bounds of the array causes an error
+     */
+
+    /* Length
+    array.len() <=> length of the array
+     */
+
+    /* Slicing
+    &array <=> whole array as a slice
+    &array[0..5] <=> slice of the 5 (0,1,2,3,4) first items of the array
+     */
 }
