@@ -63,17 +63,15 @@ fn main() {
 
 
     /* Operators */
-    // Integer addition
-    println!("1 + 2 = {}", 1u32 + 2);
+    /* Integer operations
+    int + int   for ex 1i32 + 2 = 3i32
+    int - int   for ex 1i32 - 2 = -1i32     but 1u32 - 2 is an Error */
 
-    // Integer subtraction
-    println!("1 - 2 = {}", 1i32 - 2);
+    /* Boolean logic
+    bool AND bool <=> bool && bool
+    bool OR bool <=> bool || bool
+    NOT bool <=> !bool */
 
-    // Short-circuiting boolean logic
-    println!("true AND false is {}", true && false);
-    println!("true OR false is {}", true || false);
-    println!("NOT true is {}", !true);
-
-    // Use underscores to improve readability!
-    println!("One million is written as {}", 1_000_000u32);
+    /* Use underscores to improve readability!
+    1 million is 1_000_000u32 */
 }
