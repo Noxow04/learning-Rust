@@ -4,6 +4,7 @@ fn main() {
     This is a block comment
     */
 
+    /* print */
     // basic print
     println!("Hello, world!");
 
@@ -23,5 +24,40 @@ fn main() {
     println!("Pi is roughly {pi:.3}");
 
     // debug formatted print
-    println!("{:?}", x);
+    println!("{:#?}", x);
+
+
+    /* variable types
+    signed integers : i8 / i16 / i32 (default) / i64 / i128
+    unsigned integers : u8 / u16 / u32 / u64 / u128
+    floats : f32 / f64 (default)
+    unicode characters : char
+        such as 'a', should be single-quoted
+    boolean : bool
+    */
+    // Variables can be type annotated
+    let logical: bool = true;   // not useful since true can only be a type 'bool'
+    let a_float: f64 = 1.0;     // regular annotation
+    let an_int = 5i32;      // suffix annotation (less readable in my opinion)
+
+    // Or a default type is assigned
+    let default_logical = true;
+    let default_float = 1.0;
+    let default_int = 5;
+
+    // Have to specify if a variable can be changed
+    let mut variable = 10;
+    variable = 15;
+    /* This doesnt work
+    let variable = 10;
+    variable =15;
+    */
+
+    // A variable cant change type
+    /* This doesnt work
+    variable = true;
+    */
+
+    // But it can be overwritten
+    let mut variable = true;
 }
