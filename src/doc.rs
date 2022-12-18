@@ -1,3 +1,26 @@
+#![allow(dead_code)]    // hide warnings for unused code
+
+/* Structures */
+// Structures can be a single unit
+struct Unit;
+
+// They can be tuples
+struct Pair(u32, u32);
+
+// They can have multiple fields
+struct Point {
+    x: f32,
+    y: f32,
+}
+
+// They can be used as fields of another structure (they must be declared prior however)
+struct Box {
+    top_left_corner: Point,
+    width: u32,
+    height: u32,
+}
+
+
 fn main() {
     // This is a one line comment
     /*
@@ -92,12 +115,12 @@ fn main() {
     /* Arrays, slicing and indexing */
     // Arrays have a fixed length and type
     // syntax: [type; length]
-    let array: [i32; 5] = [1,2,3,4,5];
+    let array: [i32; 5] = [1, 2, 3, 4, 5];
 
     // Arrays can also be initialized with a default value
     // Syntax : let array = [value; length]
     let array = [5; 3];
-    println!("[5; 3] is equivalent to [5,5,5] : {}", array == [5,5,5])
+    println!("[5; 3] is equivalent to [5,5,5] : {}", array == [5, 5, 5]);
 
     /* Indexing
     array[0] <=> first item of the array
@@ -114,4 +137,26 @@ fn main() {
     &array <=> whole array as a slice
     &array[0..5] <=> slice of the 5 (0,1,2,3,4) first items of the array
      */
+
+
+    /* Structures (defined before the main function) */
+    // Instantiate a `Point`
+    let point: Point = Point { x: 10.3, y: 0.4 };
+
+    // Make a new point by using struct update syntax to use the fields of an other one
+    let bottom_right = Point { x: 5.2, ..point };
+
+    // Access the fields of a struct
+    let left_edge = point.x;
+    let top_edge = point.y;
+    let Point { x: left_edge, y: top_edge } = point;    // Equivalent
+
+    // Instantiate a structure
+    let unit = Unit;
+    let pair = Pair(2, 5);
+
+    // Access the fields of a tuple struct
+    let integer_1 = pair.0;
+    let integer_2 = pair.1;
+    let Pair(integer_1, integer_2) = pair; // Equivalent
 }
