@@ -1,24 +1,35 @@
 #![allow(dead_code)]    // hide warnings for unused code
 
 /* Structures */
-// Structures can be a single unit
+// Unit struct
 struct Unit;
 
-// They can be tuples
+// Tuple struct
 struct Pair(u32, u32);
 
-// They can have multiple fields
+// C like struct
 struct Point {
     x: f32,
     y: f32,
 }
 
-// They can be used as fields of another structure (they must be declared prior however)
+// Structures can be used as fields for another structure (they must be declared prior however)
 struct Box {
     top_left_corner: Point,
     width: u32,
     height: u32,
 }
+
+
+/* Enums */
+// Basic example : using an enum to manage events on a web page
+enum WebEvent {
+    PageLoad,
+    PageUnload,
+    KeyPress(char),
+    Paste(String),
+    Click { x: i64, y: i64 },
+} // note that inner classes arent declared prior
 
 
 fn main() {
@@ -139,7 +150,13 @@ fn main() {
      */
 
 
-    /* Structures (defined before the main function) */
+    /* Structures (declared before the main function)
+    Structures are 'personal' types
+    There are basically three types of structures :
+        - Tuple structs, which are named tuples
+        - The classic C structs
+        - Unit structs, which are field-less
+    */
     // Instantiate a `Point`
     let point: Point = Point { x: 10.3, y: 0.4 };
 
@@ -159,4 +176,13 @@ fn main() {
     let integer_1 = pair.0;
     let integer_2 = pair.1;
     let Pair(integer_1, integer_2) = pair; // Equivalent
+
+
+    /* Enums (declared before the main function)
+    Enums are a collection of classes
+    Though only one of the inner classes can be assign to a variable at a time
+    */
+    // assignment with enums
+    let load = WebEvent::PageLoad;
+    let click = WebEvent::Click { x: 50, y: 50 };
 }
