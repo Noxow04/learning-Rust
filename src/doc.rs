@@ -1,4 +1,5 @@
 #![allow(dead_code)]    // hide warnings for unused code
+#![allow(unused_qualifications)]
 
 /* Structures */
 // Unit struct
@@ -93,7 +94,7 @@ fn main() {
     */
 
     // But it can be overwritten
-    let mut variable = true;
+    let variable = true;
 
 
     /* Operators */
@@ -112,10 +113,10 @@ fn main() {
 
     /* Tuples */
     // Tuples are immutable arrays and can have items with different types
-    let tuple = (true, 10, 0.5);
+    let tuple = (true, 10, 5, 0.5);
 
     // Tuples can be destructured to bind each of their item to an independent variable
-    let (x1, x2, x3) = tuple;
+    let (x1, x2, x3, x4) = tuple;
     let result = x2 + x3;
 
     // Tuples with more than 12 items wont print
@@ -185,4 +186,12 @@ fn main() {
     // assignment with enums
     let load = WebEvent::PageLoad;
     let click = WebEvent::Click { x: 50, y: 50 };
+
+    // use statement to avoid manual scoping
+    use WebEvent::{PageLoad, KeyPress};
+    use WebEvent::*; // apply use statement for each name inside WebEvent
+
+    // assignment without scoping
+    let load = PageLoad;
+    let click = Click { x: 50, y: 50 };
 }
