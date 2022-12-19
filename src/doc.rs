@@ -33,6 +33,19 @@ enum WebEvent {
 } // note that inner classes arent declared prior
 
 
+/* Constants and statics
+Global variables are defined outside the main function
+Their type must be specified
+const are variables that cant be changed
+static can be 'mut'
+However both are defined at compile time
+By convention global variables are written in MARCO_CASE
+*/
+static LEN: usize = 5;
+static mut THRESHOLD: u32 = 10;
+const LETTER: char = 'a';
+
+
 fn main() {
     // This is a one line comment
     /*
@@ -93,14 +106,15 @@ fn main() {
     variable = true;
     */
 
-    // But it can be overwritten
+    // But it can be overwritten (doesnt have to change type)
     let variable = true;
 
 
     /* Operators */
     /* Integer operations
     int + int   for ex 1i32 + 2 = 3i32
-    int - int   for ex 1i32 - 2 = -1i32     but 1u32 - 2 is an Error */
+    int - int   for ex 1i32 - 2 = -1i32     but 1u32 - 2 is an Error
+    */
 
     /* Boolean logic
     bool AND bool <=> bool && bool
@@ -194,4 +208,58 @@ fn main() {
     // assignment without scoping
     let load = PageLoad;
     let click = Click { x: 50, y: 50 };
+
+
+    /* Scope and shadowing
+    Each variable exists and shadows previous ones in their own block (and inner ones)
+    */
+    // This variable have the biggest scope because it is declared directly inside the main function
+    let a_variable = 10;
+    let mut another_variable = 10;
+
+    // This is an indented block (it has no other influence than scope)
+    {
+        // This variable will shadow the first one inside this block
+        let a_variable = 42;
+        // However changing the value of a mutable variable will be effective outside of the block scope
+        another_variable = 42;
+
+        /* Here
+        a_variable == 42
+        another_variable = 42
+        */
+    }
+
+    /* Here
+    a_variable == 10
+    another_variable = 42
+    */
+    // note that shadowing also work outside of blocks (see above in 'Variable types')
+
+
+    /* Declaring first*/
+    // Variable can be declared and assigned a value later
+    let variable;
+    variable = 10;
+
+    // However declared variables without being initialized cant be used in other expression
+    /* This doesnt work
+    let variable: i32;       note that a type can be specified in the declaration
+    println!("{}", variable);
+     */
+
+
+    /* Freezing
+    When a mutable variable is shadowed by an immutable one,
+    its value cant be modified inside the scope of the shadowing variable
+    */
+    let mut variable = 20;
+    {
+        let variable = variable;
+        /* This doesnt work
+        variable = 20;
+         */
+    }
+    // The variable is unfreeze outside the block
+    variable = 20;
 }
