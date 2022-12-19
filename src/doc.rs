@@ -1,5 +1,5 @@
-#![allow(dead_code)]    // hide warnings for unused code
-#![allow(unused_qualifications)]
+#![allow(dead_code)]                // hide warnings for unused code
+#![allow(unused_qualifications)]    // hide warning for unnecessary qualifications
 
 /* Structures */
 // Unit struct
