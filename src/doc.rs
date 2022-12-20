@@ -1,6 +1,3 @@
-#![allow(dead_code)]                // hide warnings for unused code
-#![allow(unused_qualifications)]    // hide warning for unnecessary qualifications
-
 /* Structures */
 // Unit struct
 struct Unit;
@@ -40,17 +37,17 @@ const are variables that cant be changed
 static can be 'mut'
 However both are defined at compile time
 By convention global variables are written in MARCO_CASE
-*/
+ */
 static LEN: usize = 5;
 static mut THRESHOLD: u32 = 10;
 const LETTER: char = 'a';
 
 
-fn main() {
+pub(crate) fn main() {  // The 'pub(crate)' expression make the function public for usage in the main file
     // This is a one line comment
     /*
     This is a block comment
-    */
+     */
 
     /* print */
     // basic print
@@ -82,11 +79,11 @@ fn main() {
     unicode characters : char
         such as 'a', should be single-quoted
     boolean : bool
-    */
+     */
     // Variables can be type annotated
     let logical: bool = true;   // not useful since true can only be a type 'bool'
     let a_float: f64 = 1.0;     // regular annotation
-    let an_int = 5i32;      // suffix annotation (less readable in my opinion)
+    let an_int = 5i32;      // suffix annotation can be written 5_i32 for readability
 
     // Or a default type is assigned
     let default_logical = true;
@@ -96,15 +93,15 @@ fn main() {
     // Have to specify if a variable can be changed
     let mut variable = 10;
     variable = 15;
-    /* This doesnt work
+    /* Error !
     let variable = 10;
     variable =15;
-    */
+     */
 
     // A variable cant change type
-    /* This doesnt work
+    /* Error !
     variable = true;
-    */
+     */
 
     // But it can be overwritten (doesnt have to change type)
     let variable = true;
@@ -114,15 +111,17 @@ fn main() {
     /* Integer operations
     int + int   for ex 1i32 + 2 = 3i32
     int - int   for ex 1i32 - 2 = -1i32     but 1u32 - 2 is an Error
-    */
+     */
 
     /* Boolean logic
     bool AND bool <=> bool && bool
     bool OR bool <=> bool || bool
-    NOT bool <=> !bool */
+    NOT bool <=> !bool
+     */
 
     /* Use underscores to improve readability!
-    1 million is 1_000_000 */
+    1 million is 1_000_000
+     */
 
 
     /* Tuples */
@@ -171,7 +170,7 @@ fn main() {
         - Tuple structs, which are named tuples
         - The classic C structs
         - Unit structs, which are field-less
-    */
+     */
     // Instantiate a `Point`
     let point: Point = Point { x: 10.3, y: 0.4 };
 
@@ -196,7 +195,7 @@ fn main() {
     /* Enums (declared before the main function)
     Enums are a collection of classes
     Though only one of the inner classes can be assign to a variable at a time
-    */
+     */
     // assignment with enums
     let load = WebEvent::PageLoad;
     let click = WebEvent::Click { x: 50, y: 50 };
@@ -212,7 +211,7 @@ fn main() {
 
     /* Scope and shadowing
     Each variable exists and shadows previous ones in their own block (and inner ones)
-    */
+     */
     // This variable have the biggest scope because it is declared directly inside the main function
     let a_variable = 10;
     let mut another_variable = 10;
@@ -227,24 +226,24 @@ fn main() {
         /* Here
         a_variable == 42
         another_variable = 42
-        */
+         */
     }
 
     /* Here
     a_variable == 10
     another_variable = 42
-    */
+     */
     // note that shadowing also work outside of blocks (see above in 'Variable types')
 
 
-    /* Declaring first*/
+    /* Declaring first */
     // Variable can be declared and assigned a value later
     let variable;
     variable = 10;
 
     // However declared variables without being initialized cant be used in other expression
-    /* This doesnt work
-    let variable: i32;       note that a type can be specified in the declaration
+    /* Error !
+    let variable: i32;          note that a type can be specified in the declaration
     println!("{}", variable);
      */
 
@@ -252,14 +251,38 @@ fn main() {
     /* Freezing
     When a mutable variable is shadowed by an immutable one,
     its value cant be modified inside the scope of the shadowing variable
-    */
+     */
     let mut variable = 20;
     {
         let variable = variable;
-        /* This doesnt work
+        /* Error !
         variable = 20;
          */
     }
     // The variable is unfreeze outside the block
     variable = 20;
+
+
+    /* Casting */
+    // Implicit conversions dont work
+    let float = 6.3;
+    /* Error !
+    let integer: u8 = float;
+     */
+
+    // Explicit conversion (using casting)
+    let integer = float as u8;
+
+    /* Casting is limited, for example you cant cast a float as a char
+    It has to be cast as an integer first :
+    let character = float as u8 as char;        note that you can have multiple castings on a single expression
+     */
+
+    /* WARNING
+    When casting, be careful with the types because unwanted results can occur
+    when castings values into types too small (bitwise)
+    for example :
+    1000_u16 as u8 == 232_u8
+    232_u8 as i8 == -24_i8
+     */
 }
