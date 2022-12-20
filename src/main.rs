@@ -1,6 +1,6 @@
 #![allow(unused)]         // hide warnings for unused code
 
-mod doc;    // importing the doc module
+mod doc;    // importing the doc.rs module
 
 fn main() {
     doc::main();    // using the main function of the doc module
