@@ -43,6 +43,19 @@ static mut THRESHOLD: u32 = 10;
 const LETTER: char = 'a';
 
 
+/* From statement */
+#[derive(Debug)]        // implement debug methods (such as debug print) for the struct underneath
+struct Number {
+    value: i32,
+}
+
+// implementing the from statement for the 'Number' struct
+impl From<i32> for Number {
+    fn from(item: i32) -> Self {
+        Number { value: item }
+    }
+}
+
 pub(crate) fn main() {  // The 'pub(crate)' expression make the function public for usage in the main file
     // This is a one line comment
     /*
@@ -69,7 +82,7 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
     println!("Pi is roughly {pi:.3}");
 
     // debug formatted print
-    println!("{:#?}", x);
+    println!("{:?}", x);
 
 
     /* variable types
@@ -105,6 +118,10 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
 
     // But it can be overwritten (doesnt have to change type)
     let variable = true;
+
+    // variable can interfere with other
+    let mut vec = vec![];   // this vector has the type Vec<_> because no inner type is specified
+    vec.push(1_u8);            // now it has the type Vec<u8>  because it contain an u8 type variable
 
 
     /* Operators */
@@ -164,6 +181,26 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
      */
 
 
+    /* Vectors
+    Vectors are array-like structures but can change length
+    However, because they are a structure and not a proper type,
+    Vectors are declared with a macro (or the new() method)
+     */
+    // an empty vector
+    let mut vec: Vec<i32> = vec![];         // note that the vector type must somehow be specified to avoid errors
+    let mut vec: Vec<i32> = Vec::new();
+
+    // a vector with values
+    let mut vec = vec![1, 2, 3];
+
+    // putting a new value inside a vector
+    vec.push(4);
+
+    // vectors are treated like arrays for indexing (and slicing)
+    let three = vec[2];
+    println!("{}", three);
+
+
     /* Structures (declared before the main function)
     Structures are 'personal' types
     There are basically three types of structures :
@@ -176,6 +213,7 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
 
     // Make a new point by using struct update syntax to use the fields of an other one
     let bottom_right = Point { x: 5.2, ..point };
+    let top_left = Point { ..point };
 
     // Access the fields of a struct
     let left_edge = point.x;
@@ -285,4 +323,20 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
     1000_u16 as u8 == 232_u8
     232_u8 as i8 == -24_i8
      */
+
+
+    /* From and Into traits */
+    // The from trait provide a conversion between types
+    let str = "hello";
+    let string = String::from(str);     // &str -> String
+
+    // it can be implemented for your own type (see before the main function)
+    let num = Number::from(30);
+    let num = Number { value: 30 };                 // equivalent in this example
+
+    // The into trait is the reciprocate of the from trait
+    // (and call the from trait, so there is no need to implement it)
+    let int = 5;
+    let num: Number = int.into();   // The type of the variable must be specified
+    let num = Number { value: int };
 }
