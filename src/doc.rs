@@ -65,7 +65,7 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
     println!("{number:0<5}", number = 1);
 
     // decimal limit formatted print
-    let pi = 3.141592;
+    let pi = std::f64::consts::PI;
     println!("Pi is roughly {pi:.3}");
 
     // debug formatted print
