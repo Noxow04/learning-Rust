@@ -340,3 +340,10 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
     let num: Number = int.into();   // The type of the variable must be specified
     let num = Number { value: int };
 }
+
+fn answer() -> i32 { 42 }
+
+#[test]     // 'use cargo test' to run these
+fn check_answer_validity() {
+    assert_eq!(answer(), 42);
+}

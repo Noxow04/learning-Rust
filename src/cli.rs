@@ -1,3 +1,5 @@
+// cargo run --bin cli test test.txt
+
 use clap::Parser;
 use anyhow::{Context, Result};
 
@@ -11,18 +13,20 @@ struct Cli {
 }
 
 fn main() -> Result<()> {
-    //let args = Cli::parse();
-    //println!("pattern : {}\npath: {}", args.pattern, args.path.display());
+    let args = Cli::parse();
+    let Cli { path, pattern} = args;
+    let path: &str= &path.into_os_string().into_string().unwrap();
 
-    let path = "C:\\Users\\aguir\\OneDrive\\Bureau\\copypasta_OW.txt";
-    println!("{}", path);
     let content = std::fs::read_to_string(path)
         .with_context(|| format!("could not read file `{}`", path))?;
     // the question mark return an error if the 'Result' enum before isn't a string
-    // map_err provide a custom error display (nicer and more readable)
+    // with_context provide a nicer error display
 
-    println!("File content : {}", content);
+    for line in content.lines() {
+        if line.contains(&pattern) {
+            println!("{}", line);
+        }
+    }
 
-    Ok(()) // return a default 'Result<(), Box<dyn std::error::Error>>' value
-
+    Ok(()) // return a default 'Result<()>' value
 }
