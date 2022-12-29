@@ -1,32 +1,50 @@
-// cargo run --bin cli test tests/cli.txt
-
-use clap::Parser;
 use anyhow::{Context, Result};
 
-/// Search for a pattern in a file and display the lines that contain it.
-#[derive(Parser)]
-struct Cli {
-    /// The pattern to look for
-    pattern: String,
-    /// The path to the file to read
-    path: std::path::PathBuf,
-}
+const COMMAND_LIST: &str = "grep";
 
 fn main() -> Result<()> {
-    let args = Cli::parse();
-    let Cli { path, pattern} = args;
-    let path: &str= &path.into_os_string().into_string().unwrap();
-
-    let content = std::fs::read_to_string(path)
-        .with_context(|| format!("could not read file `{}`", path))?;
-    // the question mark return an error if the 'Result' enum before isn't a string
-    // with_context provide a nicer error display
-
-    for line in content.lines() {
-        if line.contains(&pattern) {
-            println!("{}", line);
-        }
+    let command = std::env::args().nth(1).unwrap();
+    match &command[..] {
+        "help" => {
+            let parameter = std::env::args().nth(2);
+            match parameter {
+                None => println!("List of commands :\n{}", COMMAND_LIST),
+                Some(command) => {
+                    match &command[..] {
+                        "grep" => println!("Show each line in the target file containing \
+                        the specified pattern.\nUsage : grep <pattern> <path>"),
+                        _ => println!("Unknown command"),
+                    }
+                },
+            }
+        },
+        "grep" => {
+            let pattern = std::env::args().nth(2).unwrap();
+            let path = std::env::args().nth(3).unwrap();
+            let _ = grep(pattern, path, &mut std::io::stdout());
+        },
+        _ => println!("Unknown command"),
     }
 
-    Ok(()) // return a default 'Result<()>' value
+    Ok(())
+}
+
+fn grep(pattern: String, path: String, writer: impl std::io::Write) -> Result<()> {
+    let content = std::fs::read_to_string(&path)
+        .with_context(|| format!("could not read file `{}`", path))?;
+    find_matches(&content, &pattern, writer);
+    Ok(())
+}
+fn find_matches(content: &str, pattern: &str, mut writer: impl std::io::Write) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            let _ = writeln!(writer, "{}", line);
+        }
+    }
+}
+#[test]
+fn check_grep() {
+    let mut result = Vec::new();
+    let _ = grep("test".to_string(), "tests/cli.txt".to_string(), &mut result);
+    assert_eq!(result,b"test 1\ntest 2\ntest 3\nceci est un test\nbonjour (test)\n");
 }
