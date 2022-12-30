@@ -7,7 +7,7 @@ edition = "2021"
 
 
 [[bin]]
-name = "cli_discovery"
+name = "tutorial"
 path = "src/cli_discovery.rs"
 
 [[bin]]

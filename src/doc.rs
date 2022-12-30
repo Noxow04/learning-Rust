@@ -1,3 +1,5 @@
+#![allow(unused)]         // hide warnings for unused code
+
 /* Structures */
 // Unit struct
 struct Unit;

@@ -1,4 +1,4 @@
-// cargo run --bin cli_discovery test tests/cli.txt
+// cargo run --bin tutorial test tests/cli.txt
 
 use clap::Parser;
 use anyhow::{Context, Result};
