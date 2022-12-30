@@ -88,8 +88,8 @@ pub(crate) fn main() {  // The 'pub(crate)' expression make the function public 
 
 
     /* variable types
-    signed integers : i8 / i16 / i32 (default) / i64 / i128
-    unsigned integers : u8 / u16 / u32 / u64 / u128
+    signed integers : i8 / i16 / i32 (default) / i64 / i128 / isize (pointer size)
+    unsigned integers : u8 / u16 / u32 / u64 / u128 / usize (pointer size)
     floats : f32 / f64 (default)
     unicode characters : char
         such as 'a', should be single-quoted
