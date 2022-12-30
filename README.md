@@ -1,6 +1,6 @@
 # learning-Rust
 
-I follow the [Rust official doc for learning](https://doc.rust-lang.org/stable/rust-by-example/index.html)
+I follow the [Rust by example official doc for learning](https://doc.rust-lang.org/stable/rust-by-example/index.html)
 
 That is also available in 'doc pdf' alongside another great rust learning sheet
 
